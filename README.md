@@ -3,10 +3,10 @@
 ## Laravel Eraser
 
  Laravel Eraser focuses on **Erasing Eloquent Model Relation**.
- It has to mode of operation.
+ It has two mode of operation.
 
-- Manual mode:this mode require the developer to defien eraserRelationsToDelete and contain relations the eraser should delete
-- Auto mode: this mode use auto-discove for children relations to be deleted
+- Manual: this mode require the developer to defien eraserRelationsToDelete contains relations the eraser should delete
+- Auto: this mode use auto-discove for children relations to be deleted
 
 
 ### Supported Laravel versions
@@ -15,7 +15,7 @@
 | 12.x               | 1.0+             |
 
 
-## ✨ Getting Started In 3 Steps
+## Getting Started In 3 Steps
 
 > **Requires:**
 - **[PHP 8.2+](https://php.net/releases/)**
@@ -239,12 +239,11 @@ public function tags(): BelongsToMany
     [info] Processing: Post[42]
     [info] Processing relation 'comments'
     [info] Relation 'comments' processed
----
+
     Skipped
     [info] Skipping parent relation 'author'
     [info] Skipping already processed Post:42
 ---
-
     Warning
     [warning] Missing 'eraserRelationsToDelete' on Post
     [warning] Method 'likes' did not return a Relation
