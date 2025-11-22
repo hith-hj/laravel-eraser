@@ -1,14 +1,6 @@
-
-<p align="center">
-  <a href="https://github.com/larastan/larastan/actions"><img src="https://github.com/larastan/larastan/actions/workflows/tests.yml/badge.svg" alt="Build Status"></a>
-  <a href="https://packagist.org/packages/larastan/larastan/stats"><img src="https://poser.pugx.org/larastan/larastan/d/total.svg" alt="Total Downloads"></a>
-  <a href="https://packagist.org/packages/larastan/larastan"><img src="https://poser.pugx.org/larastan/larastan/v/stable.svg" alt="Latest Version"></a>
-  <a href="https://github.com/larastan/larastan/blob/master/LICENSE.md"><img src="https://poser.pugx.org/larastan/larastan/license.svg" alt="License"></a>
-</p>
-
 ------
 
-## ⚗️ About Laravel Eraser
+## Laravel Eraser
 
  Laravel Eraser focuses on **Erasing Eloquent Model Relation**.
  It has to mode of operation.
@@ -16,7 +8,6 @@
 - Manual mode:this mode require the developer to defien eraserRelationsToDelete and contain relations the eraser should delete
 - Auto mode: this mode use auto-discove for children relations to be deleted
 
-> While by definition, "static analysis" doesn't load any of your application's code. Larastan boots your application's container, so it can resolve types that are only possible to compute at runtime. That's why we use the term "code analysis" instead of "static analysis".
 
 ### Supported Laravel versions
 | Laravel Version    | Erase Version    |
@@ -39,19 +30,18 @@ composer require "hith/laravel-eraser:^1.0"
 **2**: Then, publish config file:
 
 ```bash
-	php artisan vendor:publish --tag=eraser-config
+    php artisan vendor:publish --tag=eraser-config
 ```
 
-**3**: Finally, Use the package in two ways::
--By adding traits directly to your models.
+**3**: Finally, Use the package in two ways:
 
--By using the Eraser class to delete/clean models.
+* By adding traits directly to your models.
+* By using the Eraser class to delete/clean models.
 
-#### The following section will discuss the usage of traits:
+### Usage of traits:
 -there are two types of traits [manual , auto]:
 
-### Manual Eraser Trait:
-	usage of this trait in the model:
+#### Manual Eraser Trait:
 
 ```php
 use Hith\LaravelEraser\Traits\HasManualEraser;
@@ -97,8 +87,7 @@ Or, if you just want to clear relations without deleting the model:
 $post->clean();
 ```
 
-### Auto Eraser Trait:
-	usage of this trait in the model:
+#### Auto Eraser Trait:
 
 ```php
 use Hith\LaravelEraser\Traits\HasAutoEraser;
@@ -132,7 +121,7 @@ $post->clean();
 $post->delete();
 ```
 
-#### The following section will discuss the usage of Eraser Facade:
+###  Usage of Eraser Class:
 
 - Manual Mode (default):
 ```php
@@ -154,7 +143,22 @@ $eraser->delete($model);
 
 ```
 
--[Note]: The user() relation will not be deleted in either mode, as it is considered a parent relation.
+> The user() relation will not be deleted in either mode, as it is considered a parent relation.
+
+###  Usage of Eraser Facade:
+
+```php
+use Hith\LaravelEraser\Facades\Erase;
+
+Erase::clean($model);   // Manual is the default
+Erase::delete($model);  // or cleans relations and deletes model
+
+// Erase Facade default mode is manual
+// use `type()` method to set type
+// types: [manual,auto]
+Erase::type('auto')->clean($model);
+
+```
 
 ## Eraser Configration
 
@@ -191,7 +195,7 @@ public callable|LoggerInterface $logger;
 
 ## Best practices
 
-Logging: Keep logging enabled in development/staging; set a dedicated eraser_log_channel for easier monitoring.
+Logging: Keep logging enabled in development/staging;
 
 Testing: Validate deletion flows, including parent relations and many-to-many detaches, before production.
 
@@ -231,27 +235,28 @@ public function tags(): BelongsToMany
 
 ## Log Outputs Example
 
-Info
-[info] Processing: Post[42]
-[info] Processing relation 'comments'
-[info] Relation 'comments' processed
+    Info
+    [info] Processing: Post[42]
+    [info] Processing relation 'comments'
+    [info] Relation 'comments' processed
+---
+    Skipped
+    [info] Skipping parent relation 'author'
+    [info] Skipping already processed Post:42
+---
 
-Skipped
-[info] Skipping parent relation 'author'
-[info] Skipping already processed Post:42
+    Warning
+    [warning] Missing 'eraserRelationsToDelete' on Post
+    [warning] Method 'likes' did not return a Relation
+---
+    Error
+    [error] Relation 'tags' not found on Post
+    [error] Error deleting relation 'images': Call to undefined method
 
-Warning
-[warning] Missing 'eraserRelationsToDelete' on Post
-[warning] Method 'likes' did not return a Relation
-
-Error
-[error] Relation 'tags' not found on Post
-[error] Error deleting relation 'images': Call to undefined method
-
-## 👊🏻 Contributing
+## Contributing
 
 Thank you for considering contributing to Laravel Eeraser. All the contribution guidelines are mentioned [here](CONTRIBUTING.md).
 
-## 📖 License
+## License
 
 Laravel Eraser is an open-sourced software licensed under the [MIT license](LICENSE.md).
