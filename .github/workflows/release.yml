@@ -9,8 +9,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
 
-    # Optional: Require that a separate CI job passed before running the release
-    # needs: [test]
+    permissions:
+      contents: write # Grants permission to push tags and update files
+      issues: write   # Recommended for creating release notes/issues if using semantic-release features
+      pull-requests: write
 
     steps:
       - name: Checkout repository
