@@ -62,7 +62,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
         return $this->blongsToMany(Comment::class);
     }
@@ -106,7 +106,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
         return $this->blongsToMany(Comment::class);
     }
