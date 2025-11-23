@@ -1,36 +1,44 @@
 {
-    "version":"1.0.0",
     "name": "hith/laravel-eraser",
-    "description": "some desc goes here",
+    "description": "A Laravel package for erasing models and related data safely.",
     "type": "library",
-    "require": {
-        "php": "^8.2",
-        "eventsauce/object-hydrator": "^1.7",
-        "illuminate/support": "12.x-dev"
-    },
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Hith\\LaravelEraser\\": "src/"
-        }
-    },
-    "scripts":{
-        "test":"./vendor/bin/pest",
-        "test:p":"./vendor/bin/pest -p"
-    },
-    "autoload-dev": {
-        "psr-4": {
-          "Hith\\LaravelEraser\\Tests\\": "tests/"
-        }
-    },
     "authors": [
         {
             "name": "hith-hj",
             "email": "hjhaithem@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
+    "keywords": ["laravel", "eloquent", "relations", "eraser", "delete", "cleanup"],
+    "require": {
+        "php": "^8.2",
+        "eventsauce/object-hydrator": "^1.7",
+        "illuminate/support": "^12.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.25",
+        "orchestra/testbench": "^10.6",
+        "pestphp/pest": "^3.8"
+    },
+    "scripts": {
+        "lint": "pint",
+        "test": "pest",
+        "test:p": "pest -p",
+        "check": [
+            "@lint",
+            "@test:p"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Hith\\LaravelEraser\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hith\\LaravelEraser\\Tests\\": "tests/"
+        }
+    },
     "config": {
         "sort-packages": true,
         "preferred-install": "dist",
@@ -39,19 +47,15 @@
             "pestphp/pest-plugin": true
         }
     },
-    "require-dev": {
-        "laravel/pint": "^1.25",
-        "orchestra/testbench": "^10.6",
-        "pestphp/pest": "^3.8"
-    },
     "extra": {
         "laravel": {
             "providers": [
                 "Hith\\LaravelEraser\\Providers\\EraserServiceProvider"
             ],
-            "aliases": [
-                "Hith\\LaravelEraser\\Facades\\Erase"
-            ]
+            "aliases": {
+                "Erase": "Hith\\LaravelEraser\\Facades\\Erase"
+            }
         }
-    }
+    },
+    "prefer-stable": true
 }
