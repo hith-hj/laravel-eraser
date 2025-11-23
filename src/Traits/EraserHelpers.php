@@ -301,14 +301,11 @@ trait EraserHelpers
         if (! empty($channel)) {
             try {
                 $laravelLogger = app('log')->channel($channel);
-                dump($channel);
                 if ($laravelLogger instanceof LoggerInterface) {
-                    dump($laravelLogger);
                     $laravelLogger->log($level, $message);
 
                     return;
                 }
-                dump('nothing');
             } catch (Throwable $e) {
                 error_log('Eraser: resolving log channel failed: '.$e->getMessage());
             }
