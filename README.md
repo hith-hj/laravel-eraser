@@ -3,14 +3,14 @@
 ## Laravel Eraser
 
  Laravel Eraser focuses on **Erasing Eloquent Model Relation**.
- It has two mode of operation.
+ It has two modes of operation.
 
-- Manual: this mode require the developer to defien eraserRelationsToDelete contains relations the eraser should delete
-- Auto: this mode use auto-discovre for relations to be deleted
+- Manual: this mode require the developer to define eraserRelationsToDelete contains relations the eraser should delete
+- Auto: this mode use auto-discover for relations to be deleted
 
 
 ### Supported Laravel versions
-| Laravel Version    | Erase Version    |
+| Laravel Version    | Eraser Version   |
 |--------------------|------------------|
 | 12.x               | 1.0+             |
 
@@ -64,7 +64,7 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->blongsToMany(Comment::class);
+        return $this->belongsToMany(Comment::class);
     }
 }
 
@@ -108,13 +108,13 @@ class Post extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->blongsToMany(Comment::class);
+        return $this->belongsToMany(Comment::class);
     }
 }
 
 ```
 
-as with the other one simply do this:
+As with the manual trait, simply do:
 ```php
 $post->clean();
 // or
@@ -160,10 +160,10 @@ Erase::type('auto')->clean($model);
 
 ```
 
-## Eraser Configration
+## Eraser Configuration
 
-You can alter the behavior of the eraser either globaly using the eraser config file
-or by defingin some of this attributes on you model.
+You can alter the behavior of the eraser either globally using the eraser config file
+or by defining some of this attributes on the model.
 
 ```php
 /**
@@ -204,17 +204,17 @@ Deny list: Extend eraser_base_deny_list to match your naming patterns for utilit
 Mode choice: Use manual mode for sensitive domains (users, orders); auto mode for convenience on simpler models.
 
 Ownership safety: Parent relations (BelongsTo, MorphTo) are skipped to preserve ownership chains
-and to prevent circular deletion loop.
+and to prevent circular deletion loops.
 
 Pivot hygiene: Many-to-many are detached; ensure pivot constraints and cascades are correct.
 
 Model Relationships:
 
-In order for Eraser (auto-discover) to recognize Model relationships the following is recomended:
+In order for Eraser (auto-discover) to recognize Model relationships the following is recommended:
 
 - the return type must be defined
 - the method must be `public`
-- the mathod has no arguments
+- the method has no arguments
 
 ```php
 public function user(): BelongsTo
@@ -254,7 +254,7 @@ public function tags(): BelongsToMany
 
 ## Contributing
 
-Thank you for considering contributing to Laravel Eeraser. All the contribution guidelines are mentioned [here](CONTRIBUTING.md).
+Thank you for considering contributing to Laravel Eraser. All the contribution guidelines are mentioned [here](CONTRIBUTING.md).
 
 ## License
 
