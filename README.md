@@ -6,7 +6,7 @@
  It has two mode of operation.
 
 - Manual: this mode require the developer to defien eraserRelationsToDelete contains relations the eraser should delete
-- Auto: this mode use auto-discove for children relations to be deleted
+- Auto: this mode use auto-discovre for relations to be deleted
 
 
 ### Supported Laravel versions
