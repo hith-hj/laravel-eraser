@@ -117,12 +117,12 @@ trait EraserHelpers
 
                     if (! empty($keys)) {
                         $relation->detach($keys);
-                        $this->eraserLog('Detached relation: '.$methodName, 'info');
+                        $this->log('Detached relation: '.$methodName, 'info');
                     } else {
-                        $this->eraserLog('No results for '.$methodName, 'info');
+                        $this->log('No results for '.$methodName, 'info');
                     }
                 } catch (Throwable $e) {
-                    $this->eraserLog('failed to detach ('.$methodName."): {$e->getMessage()}", 'error');
+                    $this->log('failed to detach ('.$methodName."): {$e->getMessage()}", 'error');
                 }
                 break;
             }
@@ -132,7 +132,7 @@ trait EraserHelpers
             $related = $relation->getResults();
 
             if ($related === null) {
-                $this->eraserLog('No related models found for '.$methodName, 'info');
+                $this->log('No related models found for '.$methodName, 'info');
 
                 return;
             }
@@ -145,7 +145,7 @@ trait EraserHelpers
 
             $this->deleter($related);
         } catch (Throwable $e) {
-            $this->eraserLog('No results for ('.$methodName."): {$e->getMessage()}", 'error');
+            $this->log('No results for ('.$methodName."): {$e->getMessage()}", 'error');
         }
     }
 
@@ -155,7 +155,7 @@ trait EraserHelpers
             try {
                 $model->delete();
             } catch (Throwable $e) {
-                $this->eraserLog('Error Delete ('.class_basename($model)."): {$e->getMessage()}", 'error');
+                $this->log('Error Delete ('.class_basename($model)."): {$e->getMessage()}", 'error');
             }
         };
 

@@ -30,7 +30,7 @@ composer require "hith/laravel-eraser:^1.0"
 **2**: Then, publish config file:
 
 ```bash
-    php artisan vendor:publish --tag=eraser-config
+php artisan vendor:publish --tag=eraser-config
 ```
 
 **3**: Finally, Use the package in two ways:
