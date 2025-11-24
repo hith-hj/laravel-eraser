@@ -9,9 +9,9 @@
 - Auto: this mode use auto-discover for relations to be deleted
 
 ### Supported Laravel versions
-| Laravel Version    | Eraser Version   |
-|--------------------|------------------|
-| 12.x               | 1.0+             |
+| Laravel Version  | Eraser Version  |
+|------------------|-----------------|
+| 12.x             | 1.0+            |
 
 ## Getting Started
 
