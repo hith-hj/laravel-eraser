@@ -1,8 +1,10 @@
 <?php
 
-use Hith\LaravelEraser\Tests\Fixtures\Manual\Comment;
-use Hith\LaravelEraser\Tests\Fixtures\Manual\Post;
-use Hith\LaravelEraser\Tests\Fixtures\Manual\User;
+declare(strict_types=1);
+
+use Eraser\Tests\Fixtures\Manual\Comment;
+use Eraser\Tests\Fixtures\Manual\Post;
+use Eraser\Tests\Fixtures\Manual\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -39,7 +41,7 @@ it('cant delete relation when not specified', function () {
     $user = User::create();
     $post = $user->posts()->create();
     $post->comments()->create(['user_id' => $user->id]);
-    $user->eraserRelationsToDelete = [];
+    $user->erasable = [];
     $user->clean();
 
     expect(User::count())->toBe(1)

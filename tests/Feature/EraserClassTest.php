@@ -1,9 +1,12 @@
 <?php
 
-use Hith\LaravelEraser\Eraser;
-use Hith\LaravelEraser\Tests\Fixtures\Manual\Comment;
-use Hith\LaravelEraser\Tests\Fixtures\Manual\Post;
-use Hith\LaravelEraser\Tests\Fixtures\Manual\User;
+declare(strict_types=1);
+
+use Eraser\Eraser;
+use Eraser\Facades\Erase;
+use Eraser\Tests\Fixtures\Manual\Comment;
+use Eraser\Tests\Fixtures\Manual\Post;
+use Eraser\Tests\Fixtures\Manual\User;
 
 beforeEach(function () {
     $this->setDB();
@@ -32,8 +35,8 @@ it('throws exception for invalid type', function () {
     })->toThrow(InvalidArgumentException::class, 'Invalid Eraser Type: invalid');
 });
 
-it('delete only relation specified in eraserRelationsToDelete', function () {
-    $this->user->eraserRelationsToDelete = ['comments'];
+it('delete only relation specified in erasable', function () {
+    $this->user->erasable = ['comments'];
     (new Eraser)->clean($this->user);
     expect($this->user->comments()->count())->toBe(0)
         ->and($this->user->posts()->count())->toBe(1)
@@ -41,15 +44,15 @@ it('delete only relation specified in eraserRelationsToDelete', function () {
 });
 
 it('delete relation and model', function () {
-    $this->user->eraserRelationsToDelete = ['posts'];
+    $this->user->erasable = ['posts'];
     (new Eraser)->delete($this->user);
     expect($this->user->comments()->count())->toBe(0)
         ->and($this->user->posts()->count())->toBe(0)
         ->and($this->user->fresh())->toBeNull();
 });
 
-it('cant delete relation not specified in eraserRelationsToDelete', function () {
-    $this->user->eraserRelationsToDelete = [];
+it('cant delete relation not specified in erasable', function () {
+    $this->user->erasable = [];
     (new Eraser)->clean($this->user);
     expect($this->user->comments()->count())->toBe(1)
         ->and($this->user->posts()->count())->toBe(1)
@@ -77,9 +80,29 @@ it('dont log if disabeled', function () {
 });
 
 it('cascade delete on models', function () {
-    $this->user->eraserRelationsToDelete = ['posts'];
+    $this->user->erasable = ['posts'];
     $post = $this->user->posts[0];
     (new Eraser)->clean($this->user);
+    expect($this->user->posts()->count())->toBe(0)
+        ->and($post->comments()->count())->toBe(0)
+        ->and(Post::count())->toBe(0)
+        ->and(Comment::count())->toBe(0);
+});
+
+it('can use facade to clean relation', function () {
+    $this->user->erasable = ['posts'];
+    $post = $this->user->posts[0];
+    Erase::clean($this->user);
+    expect($this->user->posts()->count())->toBe(0)
+        ->and($post->comments()->count())->toBe(0)
+        ->and(Post::count())->toBe(0)
+        ->and(Comment::count())->toBe(0);
+});
+
+it('can use facade to delete relation', function () {
+    $this->user->erasable = ['posts'];
+    $post = $this->user->posts[0];
+    Erase::delete($this->user);
     expect($this->user->posts()->count())->toBe(0)
         ->and($post->comments()->count())->toBe(0)
         ->and(Post::count())->toBe(0)

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hith\LaravelEraser;
+namespace Eraser;
 
-use Hith\LaravelEraser\Traits\HasAutoEraser;
+use Eraser\Traits\HasAutoEraser;
 
 final class AutoEraser
 {

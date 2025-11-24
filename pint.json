@@ -1,11 +1,7 @@
 {
     "options":["laravel", "per", "psr12", "symfony"],
     "preset": "laravel",
-    "notPath": [
-        "tests",
-        "app/Validators/Validators.php"
-
-    ],
+    "notPath": ["tests"],
     "rules": {
         "simplified_null_return": true,
         "array_push": true,

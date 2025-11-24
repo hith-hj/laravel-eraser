@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hith\LaravelEraser\Traits;
+namespace Eraser\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -49,7 +49,7 @@ trait HasManualEraser
 
         if (! $this->canStartManualDelete($model)) {
             $this->log(
-                "Missing 'eraserRelationsToDelete' on ".class_basename($model::class),
+                "Missing 'erasable' on ".class_basename($model::class),
                 'warning'
             );
 
@@ -68,16 +68,16 @@ trait HasManualEraser
      */
     private function canStartManualDelete(Model $model): bool
     {
-        return is_array($model->eraserRelationsToDelete)
-            && count($model->eraserRelationsToDelete) > 0;
+        return is_array($model->erasable)
+            && count($model->erasable) > 0;
     }
 
     /**
-     * Manual mode: delete only relations listed in $eraserRelationsToDelete.
+     * Manual mode: delete only relations listed in $erasable.
      */
     private function ManualDelete(Model $model): void
     {
-        foreach ($model->eraserRelationsToDelete as $relationName) {
+        foreach ($model->erasable as $relationName) {
             if (! method_exists($model, $relationName)) {
                 $this->log(
                     "Relation '{$relationName}' not found on ".class_basename($model),

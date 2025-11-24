@@ -1,18 +1,20 @@
 <?php
 
-namespace Hith\LaravelEraser\Tests\Fixtures\Auto;
+declare(strict_types=1);
 
-use Hith\LaravelEraser\Traits\HasAutoEraser;
+namespace Eraser\Tests\Fixtures\Auto;
+
+use Eraser\Traits\HasAutoEraser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Comment extends Model
+final class Comment extends Model
 {
     use HasAutoEraser;
 
-    protected $table = 'comments';
-
     public $timestamps = false;
+
+    protected $table = 'comments';
 
     protected $guarded = [];
 

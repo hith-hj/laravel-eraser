@@ -1,23 +1,25 @@
 <?php
 
-namespace Hith\LaravelEraser\Tests\Fixtures\Manual;
+declare(strict_types=1);
 
-use Hith\LaravelEraser\Traits\HasManualEraser;
+namespace Eraser\Tests\Fixtures\Manual;
+
+use Eraser\Traits\HasManualEraser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Post extends Model
+final class Post extends Model
 {
     use HasManualEraser;
+
+    public $timestamps = false;
+
+    public array $erasable = ['comments'];
 
     protected $guarded = [];
 
     protected $table = 'posts';
-
-    public $timestamps = false;
-
-    public array $eraserRelationsToDelete = ['comments'];
 
     public function user(): BelongsTo
     {

@@ -31,12 +31,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Hith\\LaravelEraser\\": "src/"
+            "Eraser\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hith\\LaravelEraser\\Tests\\": "tests/"
+            "Eraser\\Tests\\": "tests/"
         }
     },
     "config": {
@@ -50,10 +50,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Hith\\LaravelEraser\\Providers\\EraserServiceProvider"
+                "Eraser\\Providers\\EraserServiceProvider"
             ],
             "aliases": {
-                "Erase": "Hith\\LaravelEraser\\Facades\\Erase"
+                "Erase": "Eraser\\Facades\\Erase"
             }
         }
     },

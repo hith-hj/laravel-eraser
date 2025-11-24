@@ -5,26 +5,24 @@
  Laravel Eraser focuses on **Erasing Eloquent Model Relation**.
  It has two modes of operation.
 
-- Manual: this mode require the developer to define eraserRelationsToDelete contains relations the eraser should delete
+- Manual: this mode require the developer to define erasable array contains relations should be deleted
 - Auto: this mode use auto-discover for relations to be deleted
-
 
 ### Supported Laravel versions
 | Laravel Version    | Eraser Version   |
 |--------------------|------------------|
 | 12.x               | 1.0+             |
 
-
-## Getting Started In 3 Steps
+## Getting Started
 
 > **Requires:**
 - **[PHP 8.2+](https://php.net/releases/)**
 - **[Laravel 12.x+](https://github.com/laravel/laravel)**
 
-**1**: First, you may use [Composer](https://getcomposer.org) to install laravel-eraser into your Laravel project:
+**1**: First, use [Composer](https://getcomposer.org) to install laravel-eraser into your project:
 
 ```bash
-composer require "hith/laravel-eraser:^1.0"
+composer require "hith/laravel-eraser"
 ```
 
 **2**: Then, publish config file:
@@ -44,13 +42,13 @@ php artisan vendor:publish --tag=eraser-config
 #### Manual Eraser Trait:
 
 ```php
-use Hith\LaravelEraser\Traits\HasManualEraser;
+use Eraser\Traits\HasManualEraser;
 
 class Post extends Model
 {
     use HasManualEraser;
 
-    public array $eraserRelationsToDelete = ['comments','tags'];
+    public array $erasable = ['comments','tags'];
 
     public function user(): BelongsTo
     {
@@ -90,7 +88,7 @@ $post->clean();
 #### Auto Eraser Trait:
 
 ```php
-use Hith\LaravelEraser\Traits\HasAutoEraser;
+use Eraser\Traits\HasAutoEraser;
 
 class Post extends Model
 {
@@ -121,11 +119,13 @@ $post->clean();
 $post->delete();
 ```
 
+> The user() relation will not be deleted in either mode, as it is considered a parent relation.
+
 ###  Usage of Eraser Class:
 
 - Manual Mode (default):
 ```php
-use Hith\LaravelEraser\Eraser;
+use Eraser\Eraser;
 
 $eraser = new Eraser();    // Manual is the default
 $eraser->clean($model);    // cleans relations only
@@ -135,7 +135,7 @@ $eraser->delete($model);   // or cleans relations and deletes model
 
 - Auto Mode
 ```php
-use Hith\LaravelEraser\Eraser;
+use Eraser\Eraser;
 
 $eraser = new Eraser('auto');    // set eraser to auto
 $eraser->clean($model);
@@ -143,12 +143,10 @@ $eraser->delete($model);
 
 ```
 
-> The user() relation will not be deleted in either mode, as it is considered a parent relation.
-
 ###  Usage of Eraser Facade:
 
 ```php
-use Hith\LaravelEraser\Facades\Erase;
+use Eraser\Facades\Erase;
 
 Erase::clean($model);   // Manual is the default
 Erase::delete($model);  // or cleans relations and deletes model
@@ -181,7 +179,7 @@ public bool $eraser_onDeleteStart = true;
 public bool $eraser_autoDiscover = true;
 
 /**
- * Enables or disables global logging for eraser operations.
+ * Enables or disables logging for eraser operations.
  * Default: true
  * */
 public bool $eraser_logging = false;
@@ -245,7 +243,7 @@ public function tags(): BelongsToMany
     [info] Skipping already processed Post:42
 ---
     Warning
-    [warning] Missing 'eraserRelationsToDelete' on Post
+    [warning] Missing 'erasable' on Post
     [warning] Method 'likes' did not return a Relation
 ---
     Error

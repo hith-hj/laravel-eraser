@@ -1,22 +1,24 @@
 <?php
 
-namespace Hith\LaravelEraser\Tests\Fixtures\Manual;
+declare(strict_types=1);
 
-use Hith\LaravelEraser\Traits\HasManualEraser;
+namespace Eraser\Tests\Fixtures\Manual;
+
+use Eraser\Traits\HasManualEraser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+final class User extends Model
 {
     use HasManualEraser;
 
-    protected $table = 'users';
-
     public $timestamps = false;
 
-    protected $guarded = [];
+    public array $erasable = ['posts'];
 
-    public array $eraserRelationsToDelete = ['posts'];
+    protected $table = 'users';
+
+    protected $guarded = [];
 
     public function posts(): HasMany
     {

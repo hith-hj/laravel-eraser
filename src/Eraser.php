@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hith\LaravelEraser;
+namespace Eraser;
 
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;

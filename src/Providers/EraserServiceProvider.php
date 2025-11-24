@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hith\LaravelEraser\Providers;
+namespace Eraser\Providers;
 
-use Hith\LaravelEraser\Eraser;
+use Eraser\Eraser;
 use Illuminate\Support\ServiceProvider;
 
 final class EraserServiceProvider extends ServiceProvider

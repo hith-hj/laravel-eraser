@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hith\LaravelEraser\Facades;
+namespace Eraser\Facades;
 
-use Hith\LaravelEraser\Eraser;
+use Eraser\Eraser;
 use Illuminate\Support\Facades\Facade;
 
 final class Erase extends Facade

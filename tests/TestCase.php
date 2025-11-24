@@ -1,8 +1,10 @@
 <?php
 
-namespace Hith\LaravelEraser\Tests;
+declare(strict_types=1);
 
-use Hith\LaravelEraser\Providers\EraserServiceProvider;
+namespace Eraser\Tests;
+
+use Eraser\Providers\EraserServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Stringable;
@@ -16,7 +18,7 @@ abstract class TestCase extends BaseTestCase
         ];
     }
 
-    public function setDB()
+    final public function setDB()
     {
         config()->set('database.default', 'sqlite');
         config()->set('database.connections.sqlite', [
@@ -45,7 +47,7 @@ abstract class TestCase extends BaseTestCase
         });
     }
 
-    public function logger()
+    final public function logger()
     {
         return new class implements \Psr\Log\LoggerInterface
         {

@@ -1,18 +1,20 @@
 <?php
 
-namespace Hith\LaravelEraser\Tests\Fixtures\Auto;
+declare(strict_types=1);
 
-use Hith\LaravelEraser\Traits\HasAutoEraser;
+namespace Eraser\Tests\Fixtures\Auto;
+
+use Eraser\Traits\HasAutoEraser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class User extends Model
+final class User extends Model
 {
     use HasAutoEraser;
 
-    protected $table = 'users';
-
     public $timestamps = false;
+
+    protected $table = 'users';
 
     protected $guarded = [];
 

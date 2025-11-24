@@ -1,17 +1,15 @@
 <?php
 
-arch()
-	->expect('Hith\LaravelEraser')
-	->toUseStrictTypes()
-	->not->toUse(['die', 'dd', 'dump']);
+declare(strict_types=1);
 
 arch()
-	->expect('Hith\LaravelEraser\Traits')
-	->toBeTraits();
+    ->expect('Eraser')
+    ->toUseStrictTypes()
+    ->not->toUse(['die', 'dd', 'dump']);
 
 arch()
-	->expect('Hith\LaravelEraser\Interfaces')
-	->toBeInterfaces();
+    ->expect('Eraser\Traits')
+    ->toBeTraits();
 
 arch()->preset()->security();
 arch()->preset()->php();

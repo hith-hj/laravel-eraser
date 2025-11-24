@@ -1,8 +1,10 @@
 <?php
 
-use Hith\LaravelEraser\Tests\Fixtures\Auto\Comment;
-use Hith\LaravelEraser\Tests\Fixtures\Auto\Post;
-use Hith\LaravelEraser\Tests\Fixtures\Auto\User;
+declare(strict_types=1);
+
+use Eraser\Tests\Fixtures\Auto\Comment;
+use Eraser\Tests\Fixtures\Auto\Post;
+use Eraser\Tests\Fixtures\Auto\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
